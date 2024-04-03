@@ -8,10 +8,10 @@
 import CursedControlFlow
 import XCTest
 
-final class IfThenTests: XCTestCase {
-    func failTest() {
-        XCTFail("This shouldn't happen")
-    }
+final class IfThenTests: XCTestCase {}
+
+private func failTest() {
+    XCTFail("This shouldn't happen")
 }
 
 extension IfThenTests {
@@ -32,7 +32,7 @@ extension IfThenTests {
             falseConditionExpectation.fulfill()
             return false
         }.then {
-            self.failTest()
+            failTest()
         }
 
         wait(for: [falseConditionExpectation])
@@ -47,7 +47,7 @@ extension IfThenTests {
         wait(for: [thenExpectation])
 
         `if`(false).then {
-            self.failTest()
+            failTest()
         }
     }
 

@@ -27,12 +27,12 @@ public func `if`(_ condition: @autoclosure @escaping () -> Bool) -> IfCondition 
 
 // MARK: - IfThen
 
-public struct IfThen<T> {
+public struct IfThen<Value> {
     public let condition: IfCondition
 
-    let then: () -> T
+    let then: () -> Value
 
-    init(condition: IfCondition, then: @escaping () -> T) {
+    init(condition: IfCondition, then: @escaping () -> Value) {
         self.condition = condition
         self.then = then
     }
@@ -47,17 +47,17 @@ public extension IfCondition {
         self.then(then)
     }
 
-    func then<T>(_ then: @escaping () -> T) -> IfThen<T> {
+    func then<Value>(_ then: @escaping () -> Value) -> IfThen<Value> {
         .init(condition: self, then: then)
     }
 
-    func then<T>(_ then: @autoclosure @escaping () -> T) -> IfThen<T> {
+    func then<Value>(_ then: @autoclosure @escaping () -> Value) -> IfThen<Value> {
         self.then(then)
     }
 }
 
 extension IfThen: IfThenElse {
-    public func resolve() -> Resolution<T> {
+    public func resolve() -> Resolution<Value> {
         condition() ? .resolved(value: then()) : .unresolved
     }
 }

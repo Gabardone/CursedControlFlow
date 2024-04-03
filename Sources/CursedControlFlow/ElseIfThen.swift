@@ -9,8 +9,8 @@ import Foundation
 
 // MARK: - ElseIfCondition
 
-public struct ElseIfCondition<T> {
-    let parentResolver: () -> Resolution<T>
+public struct ElseIfCondition<Value> {
+    let parentResolver: () -> Resolution<Value>
 
     let condition: () -> Bool
 
@@ -20,16 +20,16 @@ public struct ElseIfCondition<T> {
 }
 
 public extension ElseIfCondition {
-    func then(_ then: @escaping () -> T) -> ElseIfThen<T> {
+    func then(_ then: @escaping () -> Value) -> ElseIfThen<Value> {
         .init(condition: self, then: then)
     }
 
-    func then(_ then: @autoclosure @escaping () -> T) -> ElseIfThen<T> {
+    func then(_ then: @autoclosure @escaping () -> Value) -> ElseIfThen<Value> {
         self.then(then)
     }
 }
 
-public extension ElseIfCondition where T == Void {
+public extension ElseIfCondition where Value == Void {
     func then(_ then: @escaping () -> Void) {
         _ = ElseIfThen(condition: self, then: then).resolve()
     }
@@ -41,14 +41,14 @@ public extension ElseIfCondition where T == Void {
 
 // MARK: - ElseIfThen
 
-public struct ElseIfThen<T> {
-    public let condition: ElseIfCondition<T>
+public struct ElseIfThen<Value> {
+    public let condition: ElseIfCondition<Value>
 
-    let then: () -> T
+    let then: () -> Value
 
     fileprivate init(
-        condition: ElseIfCondition<T>,
-        then: @escaping () -> T
+        condition: ElseIfCondition<Value>,
+        then: @escaping () -> Value
     ) {
         self.condition = condition
         self.then = then
@@ -56,7 +56,7 @@ public struct ElseIfThen<T> {
 }
 
 extension ElseIfThen: IfThenElse {
-    public func resolve() -> Resolution<T> {
+    public func resolve() -> Resolution<Value> {
         switch condition.parentResolver() {
         case let .resolved(value: value):
             .resolved(value: value)
