@@ -1,6 +1,6 @@
 //
 //  ElseIfThenTests.swift
-//  
+//
 //
 //  Created by Óscar Morales Vivó on 4/1/24.
 //
@@ -8,8 +8,7 @@
 import CursedControlFlow
 import XCTest
 
-final class ElseIfThenTests: XCTestCase {
-}
+final class ElseIfThenTests: XCTestCase {}
 
 private func failTest() {
     XCTFail("This shouldn't happen")
@@ -97,5 +96,4 @@ extension ElseIfThenTests {
             `if`(false).then(expectedValue + 1).elseIf(false).then(expectedValue).else(expectedValue - 1)
         )
     }
-
 }

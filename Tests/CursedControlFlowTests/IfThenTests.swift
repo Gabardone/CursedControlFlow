@@ -56,6 +56,6 @@ extension IfThenTests {
         `if`(true).then(thenExpectation.fulfill())
         wait(for: [thenExpectation])
 
-        `if`(false).then(self.failTest())
+        `if`(false).then(failTest())
     }
 }

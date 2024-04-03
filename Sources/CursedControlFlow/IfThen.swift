@@ -38,20 +38,20 @@ public struct IfThen<T> {
     }
 }
 
-extension IfCondition {
-    public func then(_ then: @escaping () -> Void) {
+public extension IfCondition {
+    func then(_ then: @escaping () -> Void) {
         _ = IfThen(condition: self, then: then).resolve()
     }
 
-    public func then(_ then: @autoclosure @escaping () -> Void) {
+    func then(_ then: @autoclosure @escaping () -> Void) {
         self.then(then)
     }
 
-    public func then<T>(_ then: @escaping () -> T) -> IfThen<T> {
+    func then<T>(_ then: @escaping () -> T) -> IfThen<T> {
         .init(condition: self, then: then)
     }
 
-    public func then<T>(_ then: @autoclosure @escaping () -> T) -> IfThen<T> {
+    func then<T>(_ then: @autoclosure @escaping () -> T) -> IfThen<T> {
         self.then(then)
     }
 }

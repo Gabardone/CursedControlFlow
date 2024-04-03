@@ -1,6 +1,6 @@
 //
-//  ElseIfThenElse.swift
-//  
+//  ElseIfThen.swift
+//
 //
 //  Created by Óscar Morales Vivó on 4/1/24.
 //
@@ -19,22 +19,22 @@ public struct ElseIfCondition<T> {
     }
 }
 
-extension ElseIfCondition {
-    public func then(_ then: @escaping () -> T) -> ElseIfThen<T> {
+public extension ElseIfCondition {
+    func then(_ then: @escaping () -> T) -> ElseIfThen<T> {
         .init(condition: self, then: then)
     }
 
-    public func then(_ then: @autoclosure @escaping () -> T) -> ElseIfThen<T> {
+    func then(_ then: @autoclosure @escaping () -> T) -> ElseIfThen<T> {
         self.then(then)
     }
 }
 
-extension ElseIfCondition where T == Void {
-    public func then(_ then: @escaping () -> Void) {
+public extension ElseIfCondition where T == Void {
+    func then(_ then: @escaping () -> Void) {
         _ = ElseIfThen(condition: self, then: then).resolve()
     }
 
-    public func then(_ then: @autoclosure @escaping () -> Void) {
+    func then(_ then: @autoclosure @escaping () -> Void) {
         self.then(then)
     }
 }

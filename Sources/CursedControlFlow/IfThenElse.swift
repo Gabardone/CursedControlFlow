@@ -32,7 +32,7 @@ public extension IfThenElse {
     }
 
     func `else`(_ else: @autoclosure @escaping () -> T) -> T {
-        self.`else`(`else`)
+        self.else(`else`)
     }
 
     func elseIf(_ condition: @escaping () -> Bool) -> ElseIfCondition<T> {
